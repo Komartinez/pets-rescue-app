@@ -1,0 +1,17 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #20312d;
+  background: #fbfaf6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --ink: #20312d;
+  --muted: #60706a;
+  --cream: #fbfaf6;
+  --paper: #ffffff;
+  --sage: #dbe8dd;
+  --forest: #245c4e;
+  --teal: #317465;
+  --coral: #d96f52;
+  --line: #dce5de;
+  --shadow: 0 20px 60px rgba(36, 92, 78, 0.1);
+}
