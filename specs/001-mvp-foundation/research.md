@@ -63,10 +63,11 @@
 
 ## Decision 6: Restrict browser configuration to public Supabase values
 
-- **Decision**: The browser receives only the Supabase project URL and public anonymous key.
+- **Decision**: The browser receives only the Supabase project URL and public publishable key.
   Service-role keys, OpenAI keys, and all other privileged credentials remain outside browser
   configuration and are not needed for this feature.
-- **Rationale**: Vite exposes variables with the `VITE_` prefix to client code, so only values
+- **Rationale**: Supabase's current API-key guidance recommends publishable keys for browser
+  applications. Vite exposes variables with the `VITE_` prefix to client code, so only values
   intended for browser use may use that prefix. Supabase RLS remains the authorization boundary.
 - **Alternatives considered**: Placing a service-role key in the browser was rejected as a
   direct violation of the constitution; adding a custom secret proxy was deferred because no

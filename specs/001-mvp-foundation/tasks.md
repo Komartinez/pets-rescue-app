@@ -25,7 +25,7 @@ platform boundaries before story work begins.
 - [X] T001 Initialize the Vite React TypeScript application in `package.json`, `index.html`, `src/main.tsx`, and `src/vite-env.d.ts`
 - [X] T002 Add runtime and test dependencies in `package.json` and `package-lock.json`: React Router, `@supabase/supabase-js`, Zod, Vitest, React Testing Library, Playwright, and accessibility test utilities
 - [X] T003 Configure TypeScript, Vite, Vitest, ESLint, and formatting in `tsconfig.json`, `tsconfig.app.json`, `vite.config.ts`, `vitest.config.ts`, `eslint.config.js`, and `.prettierrc`
-- [X] T004 Add the safe browser configuration contract in `.env.example` and `.gitignore`, documenting only `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
+- [X] T004 Add the safe browser configuration contract in `.env.example` and `.gitignore`, documenting only `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`
 
 ---
 

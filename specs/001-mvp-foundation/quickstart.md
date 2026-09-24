@@ -13,7 +13,7 @@ authentication, role separation, protected navigation, configuration, and the in
 ## Configure the Environment
 
 1. Copy the example environment file to the local environment file.
-2. Set the public Supabase project URL and anonymous client key.
+2. Set the public Supabase project URL and publishable client key.
 3. Do not add service-role, OpenAI, email-provider, or calendar credentials to browser-facing
    variables.
 4. Start or connect to the development Supabase project.

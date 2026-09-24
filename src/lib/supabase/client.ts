@@ -7,7 +7,7 @@ let browserClient: SupabaseClient | null = null
 export function getSupabaseClient(): SupabaseClient {
   if (!browserClient) {
     const config = getPublicConfig()
-    browserClient = createClient(config.VITE_SUPABASE_URL, config.VITE_SUPABASE_ANON_KEY)
+    browserClient = createClient(config.VITE_SUPABASE_URL, config.VITE_SUPABASE_PUBLISHABLE_KEY)
   }
   return browserClient
 }

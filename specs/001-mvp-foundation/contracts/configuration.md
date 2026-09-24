@@ -7,7 +7,7 @@ The browser may receive only values intended for public client use:
 | Variable | Required | Purpose |
 |---|---:|---|
 | `VITE_SUPABASE_URL` | Yes | Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Yes | Public anonymous client key used with RLS |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Yes | Public publishable client key used with RLS |
 
 The application MUST validate both values before creating the browser client. Missing or
 malformed values must produce a safe configuration error that does not include secret contents.

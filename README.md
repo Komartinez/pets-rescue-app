@@ -95,10 +95,10 @@ Set these values in `.env.local`:
 
 ```bash
 VITE_SUPABASE_URL=your-project-url
-VITE_SUPABASE_ANON_KEY=your-public-anon-key
+VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
-Never add service-role, OpenAI, email-provider, or calendar credentials to `VITE_` variables.
+Never add secret keys, OpenAI, email-provider, or calendar credentials to `VITE_` variables.
 
 ### 3. Start the app
 
