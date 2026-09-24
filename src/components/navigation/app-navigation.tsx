@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom'
 
-import { FutureFeatureLink } from './future-feature-link'
 import { UserMenu } from './user-menu'
 import type { UserRole } from '../../types/auth'
 
@@ -20,8 +19,17 @@ export function AppNavigation({ role }: { role: UserRole }) {
           <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to={home}>
             Dashboard
           </NavLink>
-          <FutureFeatureLink label={role === 'staff' ? 'Animals' : 'Find a companion'} />
-          <FutureFeatureLink label={role === 'staff' ? 'Applicants' : 'My applications'} />
+          {role === 'staff' ? <>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/staff/animals">Animals</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/staff/applications">Applications</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/staff/applicants">Applicants</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/staff/appointments">Appointments</NavLink>
+          </> : <>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/app/questionnaire">Questionnaire</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/app/recommendations">Matches</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/app/applications">Applications</NavLink>
+            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/app/assistant">Assistant</NavLink>
+          </>}
         </nav>
         <div className="header-actions">
           <span className="role-badge">{roleLabels[role]}</span>

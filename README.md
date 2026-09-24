@@ -29,7 +29,7 @@ This platform is being built for a Costa Rican rescue center to make that journe
 
 ## 🧭 Current status
 
-The project currently delivers the secure MVP foundation:
+The project currently delivers the secure MVP foundation plus the core applicant and staff workflows:
 
 | Area                                      | Status             |
 | ----------------------------------------- | ------------------ |
@@ -40,10 +40,12 @@ The project currently delivers the secure MVP foundation:
 | Supabase profile and role schema          | ✅ Ready           |
 | Row Level Security policies               | ✅ Migration ready |
 | Responsive public/applicant/staff layouts | ✅ Ready           |
-| Animal management                         | 🗺️ Next feature    |
-| Compatibility matching                    | 🗺️ Planned         |
-| Grounded AI assistant                     | 🗺️ Planned         |
-| Appointments and adoption workflows       | 🗺️ Planned         |
+| Animal management                         | ✅ Ready           |
+| Questionnaire and compatibility matching  | ✅ Ready           |
+| Adoption applications                     | ✅ Ready           |
+| Appointment request records               | ✅ Ready           |
+| Outlook/email delivery                    | 🔐 Credentials needed |
+| Grounded AI assistant                     | 🔐 Edge Function setup needed |
 
 ## 🏗️ Architecture
 
@@ -99,6 +101,18 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
 Never add secret keys, OpenAI, email-provider, or calendar credentials to `VITE_` variables.
+
+Apply the database migrations before using the workflows:
+
+```bash
+npx supabase login
+npx supabase link --project-ref YOUR_PROJECT_REF
+npx supabase db push
+```
+
+The second migration creates animal records, photo storage policies, questionnaires,
+compatibility results, applications, appointments, notification records, and assistant
+conversation storage. Staff provisioning remains trusted-only.
 
 ### 3. Start the app
 
@@ -156,9 +170,18 @@ route contract in [`routes-and-access.md`](specs/001-mvp-foundation/contracts/ro
 | `/auth/recover`  | Public           | Password recovery         |
 | `/auth/reset`    | Recovery session | Set a new password        |
 | `/app`           | Applicant        | Applicant home shell      |
-| `/app/account`   | Applicant        | Account placeholder       |
+| `/app/account`   | Applicant        | Account settings          |
+| `/app/questionnaire` | Applicant     | Adoption questionnaire    |
+| `/app/recommendations` | Applicant  | Explainable matches      |
+| `/app/applications` | Applicant      | Application status        |
+| `/app/appointments` | Applicant      | Appointment requests      |
+| `/app/assistant` | Applicant         | Grounded rescue assistant |
 | `/staff`         | Staff            | Staff workspace shell     |
-| `/staff/account` | Staff            | Staff account placeholder |
+| `/staff/account` | Staff            | Staff account settings    |
+| `/staff/animals` | Staff            | Animal records and photos |
+| `/staff/applications` | Staff       | Application review        |
+| `/staff/applicants` | Staff         | Applicant directory       |
+| `/staff/appointments` | Staff      | Appointment management    |
 
 ## 📁 Project map
 
@@ -181,12 +204,26 @@ specs/001-mvp-foundation/ # Constitution, plan, contracts, and executable tasks
 ## 🧩 Roadmap
 
 1. **Foundation** — authentication, roles, protected shell, and secure data boundaries.
-2. **Animal management** — staff CRUD, photos, availability, health, behavior, and care data.
+2. **Animal management** — staff CRUD, photos, availability, health, behavior, and care data. ✅
 3. **Questionnaire and matching** — conditional questions, deterministic eligibility, transparent
-   compatibility scoring.
-4. **Applications and appointments** — staff review, Outlook Calendar, notifications, and
-   auditable status transitions.
-5. **Grounded AI assistant** — verified animal records only, with clear limits and staff handoff.
+   compatibility scoring. ✅
+4. **Applications and appointments** — staff review and appointment request/status records. ✅
+5. **Grounded AI assistant** — verified animal records only through a Supabase Edge Function. 🔐
+6. **External delivery** — configure Microsoft Graph/Outlook and a transactional email provider
+   for live calendar synchronization and notifications. 🔐
+
+### Enable the assistant
+
+Keep the OpenAI credential in Supabase’s server-side secret store:
+
+```bash
+npx supabase secrets set OPENAI_API_KEY=your_openai_key
+npx supabase secrets set OPENAI_MODEL=gpt-4o-mini
+npx supabase functions deploy animal-assistant
+```
+
+The React app never receives this key. The Edge Function authenticates the caller, reads only
+available animal records through Supabase, and sends a grounded prompt to the model.
 
 ## 🤝 Development principles
 
